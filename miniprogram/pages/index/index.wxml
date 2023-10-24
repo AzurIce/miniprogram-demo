@@ -1,7 +1,10 @@
 <!--index.wxml-->
 <view class="container">
-
-  <view class="title">快速了解云开发</view>
+  <van-popup show="{{ !loggedIn }}" position="bottom" custom-style="height: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <van-button type="primary" bind:tap="onLogin">微信授权登录</van-button>
+    <!-- <button bind:tap="onGetUserProfile">sss</button> -->
+  </van-popup>
+  <!-- <view class="title">快速了解云开发</view>
 
   <view class="top_tip">免鉴权接口调用 免部署后台 高并发</view>
 
@@ -27,6 +30,7 @@
 
   <view class="environment" bindtap="onChangeShowEnvChoose">当前环境 {{ selectedEnv.alias }}</view>
 
-  <cloud-tip-modal showUploadTipProps="{{showUploadTip}}"></cloud-tip-modal>
+  <cloud-tip-modal showUploadTipProps="{{showUploadTip}}"></cloud-tip-modal> -->
 
+  <!-- <mp-tabbar></mp-tabbar> -->
 </view>

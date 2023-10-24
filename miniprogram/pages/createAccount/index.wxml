@@ -1,0 +1,31 @@
+<!--pages/createAccount/index.wxml-->
+<view style="display: flex; flex-direction: column; align-items: stretch; justify-items: center; gap: 10px;">
+
+  <view>
+    <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+      <image class="avatar" src="{{avatarUrl}}"></image>
+    </button>
+    <!-- <input type="nickname" class="weui-input" placeholder="请输入昵称" value="{{nickName}}" /> -->
+    <van-cell-group>
+      <van-field type="nickname" model:value="{{ nickName }}" placeholder="请输入用户名" border="{{ false }}" />
+    </van-cell-group>
+
+
+    <picker bindchange="bindGenderChange" mode="selector" range="{{genderRange}}" value="{{genderIndex}}">
+      <view class="picker">
+        性别：{{genderRange[genderIndex]}}
+      </view>
+    </picker>
+    <!-- TODO: end today -->
+    <picker mode="date" value="{{date}}" start="1900-01-01" end="2025-09-01" bindchange="bindDateChange">
+      <view class="picker">
+        出生日期: {{birthDate}}
+      </view>
+    </picker>
+
+  </view>
+
+  <van-button type="primary" bind:tap="onSubmit" size="large">提交</van-button>
+
+
+</view>

@@ -1,6 +1,8 @@
 // index.js
 // const app = getApp()
-const { envList } = require('../../envList.js');
+const {
+  envList
+} = require('../../envList.js');
 
 Page({
   data: {
@@ -10,20 +12,20 @@ Page({
       tip: '安全、免鉴权运行业务代码',
       showItem: false,
       item: [{
-        title: '获取OpenId',
-        page: 'getOpenId'
-      },
-      //  {
-      //   title: '微信支付'
-      // },
-       {
-        title: '生成小程序码',
-        page: 'getMiniProgramCode'
-      },
-      // {
-      //   title: '发送订阅消息',
-      // }
-    ]
+          title: '获取OpenId',
+          page: 'getOpenId'
+        },
+        //  {
+        //   title: '微信支付'
+        // },
+        {
+          title: '生成小程序码',
+          page: 'getMiniProgramCode'
+        },
+        // {
+        //   title: '发送订阅消息',
+        // }
+      ]
     }, {
       title: '数据库',
       tip: '安全稳定的文档型数据库',
@@ -60,8 +62,57 @@ Page({
     }],
     envList,
     selectedEnv: envList[0],
-    haveCreateCollection: false
+    haveCreateCollection: false,
+    loggedIn: false
   },
+
+  onLoad: async function () {
+    const res = await wx.cloud.callFunction({
+      name: 'isUserExist'
+    })
+    console.log(`[pages/index]: isUserExist: ${res.result}`)
+    this.setData({
+      loggedIn: res.result
+    })
+  },
+
+  onLogin: async function () {
+    /*
+      检查用户是否存在
+      - 存在 -> 直接获取用户信息存储到 app 的 globalData 中
+      - 不存在 -> 获取用户名头像，并带参跳转到创建用户页面 -> 提交到云函数创建用户 -> 跳转回 index
+    */
+    console.log('[pages/index/onLogin]: User not exist, getting user profile...')
+    wx.getUserProfile({
+      desc: 'desc',
+      lang: 'zh_CN',
+      success: (result) => {
+        console.log('[pages/index/onLogin]: User profile: ', result)
+        wx.redirectTo({
+          url: `/pages/createAccount/index?nickName=${result.userInfo.nickName}&avatarUrl=${result.userInfo.avatarUrl}`,
+        })
+      },
+      fail: (err) => {
+        console.error(err)
+      },
+      complete: (res) => {},
+    })
+  },
+
+  // onGetUserProfile() {
+  //   const userProfile = wx.getUserProfile({
+  //     desc: 'desc',
+  //     lang: 'zh_CN',
+  //     success: (result) => {
+  //       console.log(result)
+  //     },
+  //     fail: (err) => {
+  //       console.error(err)
+  //     },
+  //     complete: (res) => {},
+  //   })
+  //   console.log(userProfile)
+  // },
 
   onClickPowerInfo(e) {
     const index = e.currentTarget.dataset.index;
@@ -82,7 +133,7 @@ Page({
       success: (res) => {
         this.onChangeSelectedEnv(res.tapIndex);
       },
-      fail (res) {
+      fail(res) {
         console.log(res.errMsg);
       }
     });
