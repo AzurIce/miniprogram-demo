@@ -1,0 +1,6 @@
+<!--pages/createPost/index.wxml-->
+<view>
+  <van-field model:value="{{ title }}" placeholder="标题" border="{{ false }}" />
+  <van-field model:value="{{ content }}" type="textarea" placeholder="内容" border="{{ false }}" autosize="{{true}}" style="min-height: 200px;" />
+  <van-button type="primary" size="large" bind:tap="onSubmit" loading="{{submitting}}">提交</van-button>
+</view>

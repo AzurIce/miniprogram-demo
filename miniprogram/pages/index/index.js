@@ -63,16 +63,36 @@ Page({
     envList,
     selectedEnv: envList[0],
     haveCreateCollection: false,
-    loggedIn: false
+    loading: true,
+    loggedIn: false,
+    posts: []
   },
 
   onLoad: async function () {
-    const res = await wx.cloud.callFunction({
-      name: 'isUserExist'
+    wx.cloud.callFunction({
+      name: 'getUserInfo'
+    }).then(() => {
+      this.setData({
+        loggedIn: true,
+        loading: false
+      })
+    }).catch(() => {
+      this.setData({
+        loggedIn: false,
+        loading: false
+      })
     })
-    console.log(`[pages/index]: isUserExist: ${res.result}`)
-    this.setData({
-      loggedIn: res.result
+  },
+
+  onShow: async function() {
+    // console.log("onShow")
+    wx.cloud.callFunction({
+      name: 'getPosts'
+    }).then((res) => {
+      console.log(res)
+      this.setData({
+        posts: res.result
+      })
     })
   },
 
@@ -96,6 +116,25 @@ Page({
         console.error(err)
       },
       complete: (res) => {},
+    })
+  },
+
+  onCreatePost() {
+    wx.navigateTo({
+      url: '/pages/createPost/index',
+      success: (res) => {
+        console.log(res)
+      },
+      fail: (err) => {
+        console.error(err)
+      }
+    })
+  },
+
+  enterPost(e) {
+    const postId = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/post/index?id=${postId}`,
     })
   },
 

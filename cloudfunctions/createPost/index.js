@@ -5,27 +5,24 @@ cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 }) // 使用当前云环境
 
-const users = cloud.database().collection('user')
+const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
   const {
-    nickName,
-    avatarUrl,
-    birthDate,
-    gender,
+    title,
+    content,
   } = event
 
   try {
-    const res = await users.add({
+    const res = await db.collection('post').add({
       data: {
         _openid: wxContext.OPENID,
-        nickName,
-        avatarUrl,
-        birthDate: new Date(birthDate),
-        gender,
+        publisher: wxContext.OPENID,
+        title,
+        content
       }
     })
 

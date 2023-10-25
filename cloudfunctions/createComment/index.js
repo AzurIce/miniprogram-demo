@@ -1,25 +1,36 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }) // 使用当前云环境
+cloud.init({
+  env: cloud.DYNAMIC_CURRENT_ENV
+}) // 使用当前云环境
 
-const users = cloud.database().collection('user')
+const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
+  const {
+    postId,
+    content
+  } = event
+
   try {
-    const user = await users.where({
-      _openid: wxContext.OPENID,
-    }).get().data[0]
-  
-    console.log(user)
-    return true
+    const res = await db.collection('comment').add({
+      data: {
+        _openid: wxContext.OPENID,
+        commenter: wxContext.OPENID,
+        postId,
+        content
+      }
+    })
+
+    console.log(res)
   } catch (e) {
     console.error(e)
-    return false
   }
+
 
   // return {
   //   event,

@@ -1,30 +1,42 @@
-// pages/mine/index.js
+// pages/createPost/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo: {
-      avatarUrl: '',
-      nickName: '',
-      gender: 0,
-      birthDate: new Date()
+    title: '',
+    content: '',
+    submitting: false
+  },
+
+  onSubmit() {
+    if (!this.data.title.length || !this.data.content.length) {
+      return
     }
+    // console.log("submit")
+    wx.cloud.callFunction({
+      name: 'createPost',
+      data: {
+        title: this.data.title,
+        content: this.data.content
+      }
+    }).then((res) => {
+      console.log(res)
+      wx.navigateBack()
+    }).catch((err) => {
+      console.error(err)
+      wx.showToast({
+        title: err,
+      })
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    wx.cloud.callFunction({
-      name: 'getUserInfo'
-    }).then((res) => {
-      this.setData({
-        userInfo: res.result
-      })
-      console.log(this.data)
-    })
+
   },
 
   /**

@@ -1,9 +1,28 @@
 <!--index.wxml-->
-<view class="container">
-  <van-popup show="{{ !loggedIn }}" position="bottom" custom-style="height: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+<view style="display: flex; flex-direction: column; gap: 10px; height: 100%; overflow-y: hidden;">
+  <van-popup wx:if="{{ !loading }}" show="{{ !loggedIn }}" position="bottom" custom-style="height: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
     <van-button type="primary" bind:tap="onLogin">微信授权登录</van-button>
     <!-- <button bind:tap="onGetUserProfile">sss</button> -->
   </van-popup>
+
+  <van-button size="large" bind:tap="onCreatePost" type="primary">
+    创建帖子
+  </van-button>
+
+  <view style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex: 1;">
+    <view wx:for="{{posts}}" wx:key="_id" style="display: flex; flex-direction: column; align-items: stretch; background-color: white; padding: 10px; height: 100px;" bind:tap="enterPost" data-id="{{item._id}}">
+      <view style="font-weight: 600;">
+        {{item.title}}
+      </view>
+      <view style="overflow-y: hidden;">
+        {{item.content}}
+      </view>
+      <view style="color: #777777">
+        {{item.publisher}}
+      </view>
+    </view>
+  </view>
+
   <!-- <view class="title">快速了解云开发</view>
 
   <view class="top_tip">免鉴权接口调用 免部署后台 高并发</view>

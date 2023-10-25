@@ -1,0 +1,32 @@
+<!--pages/post/index.wxml-->
+<view style="display: flex; flex-direction: column; gap: 10px;">
+  <view style="display: flex; flex-direction: column; gap: 10px; background-color: white; border: 1px #00000023 solid; border-radius: 4px; padding: 10px;">
+    <view style="font-weight: 600;">
+      {{post.title}}
+    </view>
+    <view>
+      {{post.content}}
+    </view>
+  </view>
+  <view>
+  评论：
+  </view>
+  <van-field
+    model:value="{{ comment }}"
+    label="评论内容"
+    type="textarea"
+    placeholder="请输入评论内容"
+    border="{{ false }}"
+    autosize
+  >
+  </van-field>
+  <van-button slot="button" size="small" type="primary" bind:tap="onComment">
+    评论
+  </van-button>
+
+  <view style="display: flex; flex-direction: column; gap: 10px;">
+    <view wx:for="{{comments}}" style="background-color: white; border: 1px #00000023 solid; border-radius: 4px; padding: 10px;">
+      {{item.content}}
+    </view>
+  </view>
+</view>

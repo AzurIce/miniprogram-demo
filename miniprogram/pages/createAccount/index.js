@@ -9,7 +9,8 @@ Page({
     avatarUrl: '',
     birthDate: '',
     genderIndex: 0,
-    genderRange: ['男', '女']
+    genderRange: ['男', '女'],
+    submitting: false
   },
 
   /**
@@ -21,55 +22,6 @@ Page({
       avatarUrl: options.avatarUrl,
     })
     console.log('[pages/createAccount/onLoad]: ', options)
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
   },
 
   onGetUserInfo() {
@@ -99,13 +51,19 @@ Page({
     })
   },
   onChooseAvatar(e) {
-    const { avatarUrl } = e.detail 
+    const {
+      avatarUrl
+    } = e.detail
     this.setData({
       avatarUrl,
     })
   },
   onSubmit() {
-    if (!this.data.nickName.length || !this.data.birthDate.length)
+    if (!this.data.nickName.length || !this.data.birthDate.length) {
+      console.log("some thing empty")
+      return
+    }
+    this.setData({submitting: true})
     wx.cloud.callFunction({
       name: 'createUser',
       data: {
@@ -114,6 +72,15 @@ Page({
         gender: this.data.genderRange[this.data.genderIndex],
         birthDate: this.data.birthDate
       }
+    }).then((res) => {
+      console.log(res)
+      this.setData({submitting: false})
+      wx.reLaunch({
+        url: '/pages/index/index',
+      })
+    }).catch((err) => {
+      console.error(err)
+      this.setData({submitting: false})
     })
   }
 })

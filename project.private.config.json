@@ -6,6 +6,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/createPost/index",
+          "pathName": "pages/createPost/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
           "query": "",

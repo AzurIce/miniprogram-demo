@@ -1,2 +1,14 @@
 <!--pages/mine/index.wxml-->
-<text>pages/mine/index.wxml</text>
+<view class="display: flex; flex-direction: column; align-items: stretch; justify-items: center; gap: 10px;">
+
+  <van-image width="100" height="100" src="{{userInfo.avatarUrl}}" />
+  <view>
+    {{userInfo.nickName}}
+  </view>
+  <view>
+    {{userInfo.gender}}
+  </view>
+  <view>
+    {{userInfo.birthDate}}
+  </view>
+</view>

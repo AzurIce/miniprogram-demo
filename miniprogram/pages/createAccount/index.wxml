@@ -25,7 +25,7 @@
 
   </view>
 
-  <van-button type="primary" bind:tap="onSubmit" size="large">提交</van-button>
+  <van-button type="primary" bind:tap="onSubmit" size="large" loading="{{submitting}}">提交</van-button>
 
 
 </view>

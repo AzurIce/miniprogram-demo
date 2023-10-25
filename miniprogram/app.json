@@ -13,7 +13,9 @@
     "pages/sumRecord/index",
     "pages/sumRecordResult/index",
     "pages/mine/index",
-    "pages/createAccount/index"
+    "pages/createAccount/index",
+    "pages/createPost/index",
+    "pages/post/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

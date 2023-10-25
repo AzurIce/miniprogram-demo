@@ -14,6 +14,20 @@ App({
       });
     }
 
-    this.globalData = {};
+    // try {
+    //   const res = await wx.cloud.callFunction({
+    //     name: 'getUserInfo',
+    //   })
+    //   console.log(res.result)
+    //   this.globalData = {
+    //     userInfo: res.result
+    //   };
+    // } catch (e) {
+    //   this.globalData = {
+    //     userInfo: undefined
+    //   };
+    // }
+    this.globalData = {}
+
   }
 });
