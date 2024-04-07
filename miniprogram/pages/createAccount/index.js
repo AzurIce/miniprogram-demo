@@ -60,9 +60,11 @@ Page({
   },
   onSubmit() {
     if (!this.data.nickName.length || !this.data.birthDate.length) {
-      console.log("some thing empty")
+      console.log("[pages/createAccount/onSubmit]: some thing empty")
+      alert("请填写完整信息") // TODO: 美化
       return
     }
+
     this.setData({submitting: true})
     wx.cloud.callFunction({
       name: 'createUser',
@@ -73,13 +75,13 @@ Page({
         birthDate: this.data.birthDate
       }
     }).then((res) => {
-      console.log(res)
+      console.log("[pages/createAccount/onSubmit]: cloud function 'createUser' success: ", res)
       this.setData({submitting: false})
       wx.reLaunch({
         url: '/pages/index/index',
       })
     }).catch((err) => {
-      console.error(err)
+      console.error("[pages/createAccount/onSubmit]: cloud function 'createUser' failed: ", err)
       this.setData({submitting: false})
     })
   }

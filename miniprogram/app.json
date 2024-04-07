@@ -15,7 +15,8 @@
     "pages/mine/index",
     "pages/createAccount/index",
     "pages/createPost/index",
-    "pages/post/index"
+    "pages/post/index",
+    "pages/library/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -29,6 +30,10 @@
       {
         "pagePath": "pages/index/index",
         "text": "index"
+      },
+      {
+        "pagePath": "pages/library/index",
+        "text": "library"
       },
       {
         "pagePath": "pages/mine/index",

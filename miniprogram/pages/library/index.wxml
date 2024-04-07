@@ -1,0 +1,12 @@
+<!--pages/library/index.wxml-->
+<van-search value="{{ value }}" placeholder="请输入搜索关键词" bind:change="onChange" bind:search="onSearch" />
+
+<div style="display: flex; flex-direction: column; gap: 4px;">
+  <view wx:for="{{ results }}">
+    <div style="display: flex; flex-direction: column; background-color: white;  border-radius: 8px; margin: 2px 4px; padding: 4px;">
+      <span style="font-size: large; font-weight: bold;">{{ item.bookname }}</span>
+      <span style="margin: 8px;">{{ item.content }}</span>
+      <span style="font-size: small; color: #777777;">第 {{ item.line }} 行</span>
+    </div>
+  </view>
+</div>
