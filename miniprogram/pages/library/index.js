@@ -6,11 +6,8 @@ Page({
    */
   data: {
     value: "",
-    results: [{
-      bookname: "bookname",
-      line: 77,
-      content: "par",
-    }]
+    books: ["身体的秘密", "女科撮要", "女生呵护指南", "健康守护全书", "中医妇科学", "中医四小经典"],
+    results: []
   },
 
   onSearch() {
@@ -25,8 +22,16 @@ Page({
       }
     }).then((res) => {
       console.log("search: ", res)
+      let res2 = res.result;
+      const regExp = new RegExp(this.data.value, 'g')
+      res2 = res2.map((r) => {
+        r.content = r.content.replace(regExp, `<span style="color: #BD5C01;">${this.data.value}</span>`)
+        return r
+      })
+      console.log(res2[0])
+
       this.setData({
-        results: res.result,
+        results: res2,
       })
     }).catch((err) => {
       console.error("search failed: ", err)
