@@ -29,15 +29,15 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "index"
+        "text": "首页"
       },
       {
         "pagePath": "pages/library/index",
-        "text": "library"
+        "text": "图书"
       },
       {
         "pagePath": "pages/mine/index",
-        "text": "mine"
+        "text": "我的"
       }
     ]
   },

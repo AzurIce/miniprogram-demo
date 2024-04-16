@@ -1,14 +1,17 @@
 <!--pages/mine/index.wxml-->
 <view class="display: flex; flex-direction: column; align-items: stretch; justify-items: center; gap: 10px;">
-
-  <van-image width="100" height="100" src="{{userInfo.avatarUrl}}" />
-  <view>
-    {{userInfo.nickName}}
-  </view>
-  <view>
-    {{userInfo.gender}}
-  </view>
-  <view>
-    {{userInfo.birthDate}}
-  </view>
+  <div style="display: flex; flex-direction: column; align-items: center; background-color: white; padding: 20px 0;">
+    <van-image width="100" height="100" src="{{userInfo.avatarUrl}}" />
+    <div style="display: flex; flex-direction: column; height: fit-content; padding: 8px;">
+      <view>
+        昵称：{{userInfo.nickName}}
+      </view>
+      <view>
+        性别：{{userInfo.gender}}
+      </view>
+      <view>
+        出生日期：{{userInfo.birthDate}}
+      </view>
+    </div>
+  </div>
 </view>
